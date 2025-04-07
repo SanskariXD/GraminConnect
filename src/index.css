@@ -14,10 +14,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 252 80% 75%;
-    --primary-foreground: 252 5% 100%;
+    --primary: 162 59% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 23% 54%;
+    --secondary: 193 82% 31%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
@@ -31,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 252 80% 75%;
+    --ring: 162 59% 45%;
 
     --radius: 0.75rem;
   }
@@ -46,10 +46,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 252 80% 75%;
-    --primary-foreground: 252 5% 100%;
+    --primary: 162 59% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 23% 54%;
+    --secondary: 193 82% 31%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 217.2 32.6% 17.5%;
@@ -103,7 +103,7 @@
   }
 
   .healthcare-btn-secondary {
-    @apply bg-white text-healthcare-secondary border border-healthcare-secondary hover:bg-healthcare-soft-purple;
+    @apply bg-white text-healthcare-secondary border border-healthcare-secondary hover:bg-healthcare-soft-blue;
   }
 
   .healthcare-btn-danger {

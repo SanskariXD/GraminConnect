@@ -63,19 +63,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Healthcare app custom colors
+				// Healthcare app custom colors - updated for rural healthcare theme
 				healthcare: {
-					primary: "#9b87f5",
-					secondary: "#7E69AB",
-					emergency: "#ea384c",
-					success: "#10b981",
-					warning: "#f59e0b",
-					info: "#3b82f6",
-					"soft-blue": "#d3e4fd",
-					"soft-green": "#f2fce2",
-					"soft-purple": "#e5deff",
-					"soft-yellow": "#fef7cd",
-					"soft-red": "#ffdee2"
+					primary: "#2E9E85",    // Teal green - main primary color
+					secondary: "#1A6E8E",  // Deep blue-green - secondary color
+					emergency: "#E63946",  // Bright red for emergency alerts
+					success: "#43AA8B",    // Softer green for success states
+					warning: "#F8A32B",    // Warm orange for warnings
+					info: "#41A4DB",       // Sky blue for information
+					"soft-blue": "#D1E8F5", // Soft blue background
+					"soft-green": "#E0F4EF", // Soft green background
+					"soft-teal": "#D2F2EA", // Soft teal background
+					"soft-yellow": "#FFF2D1", // Soft yellow for notes
+					"soft-red": "#FADDDD"   // Soft red for mild alerts
 				}
 			},
 			borderRadius: {

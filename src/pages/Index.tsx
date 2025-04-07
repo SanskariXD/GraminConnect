@@ -18,12 +18,12 @@ const Index = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-healthcare-soft-green to-white">
       <div className="container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-3xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center p-2 mb-4 bg-healthcare-soft-purple rounded-full">
+            <div className="inline-flex items-center justify-center p-2 mb-4 bg-healthcare-soft-teal rounded-full">
               <Heart className="h-6 w-6 text-healthcare-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-healthcare-primary to-healthcare-secondary bg-clip-text text-transparent mb-4">
@@ -38,7 +38,7 @@ const Index = () => {
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
             <div className="md:flex">
               {/* Image Section - only visible on md and above */}
-              <div className="hidden md:block md:w-1/2 bg-healthcare-soft-purple">
+              <div className="hidden md:block md:w-1/2 bg-healthcare-soft-teal">
                 <div className="h-full flex items-center justify-center p-6">
                   <img 
                     src="/placeholder.svg" 
@@ -60,7 +60,7 @@ const Index = () => {
                 <div className="flex justify-center">
                   <Button 
                     onClick={() => navigate('/login')}
-                    className="healthcare-btn healthcare-btn-primary flex items-center group px-8 py-6 text-lg"
+                    className="healthcare-btn flex items-center group px-8 py-6 text-lg bg-healthcare-primary text-white hover:bg-healthcare-secondary transition-colors"
                   >
                     <span>Get Started</span>
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
