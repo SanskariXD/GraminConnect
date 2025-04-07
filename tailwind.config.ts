@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Healthcare app custom colors
+				healthcare: {
+					primary: "#9b87f5",
+					secondary: "#7E69AB",
+					emergency: "#ea384c",
+					success: "#10b981",
+					warning: "#f59e0b",
+					info: "#3b82f6",
+					"soft-blue": "#d3e4fd",
+					"soft-green": "#f2fce2",
+					"soft-purple": "#e5deff",
+					"soft-yellow": "#fef7cd",
+					"soft-red": "#ffdee2"
 				}
 			},
 			borderRadius: {
@@ -69,26 +84,23 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+				"accordion-down": {
+					from: { height: "0" },
+					to: { height: "var(--radix-accordion-content-height)" },
 				},
-				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)" },
+					to: { height: "0" },
+				},
+				"pulse-alert": {
+					"0%, 100%": { opacity: "1" },
+					"50%": { opacity: "0.5" },
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"pulse-alert": "pulse-alert 2s ease-in-out infinite",
 			}
 		}
 	},
