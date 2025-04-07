@@ -22,6 +22,7 @@ const NurseDashboard = () => {
   const [patients, setPatients] = useState<Patient[]>(mockPatients);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [isAddingPatient, setIsAddingPatient] = useState(false);
+  const [nurseVillage, setNurseVillage] = useState<string>('');
   
   // Form states for new patient
   const [newPatientName, setNewPatientName] = useState('');
@@ -35,8 +36,29 @@ const NurseDashboard = () => {
     const userRole = localStorage.getItem('userRole');
     if (userRole !== 'nurse') {
       navigate('/login');
+      return;
     }
-  }, [navigate]);
+    
+    // Get nurse's assigned village
+    const village = localStorage.getItem('userVillage');
+    if (village) {
+      setNurseVillage(village);
+      setNewPatientVillage(village); // Pre-select for new patients
+    } else {
+      // If no village is assigned, redirect to login
+      toast({
+        title: "Village not assigned",
+        description: "Please login again and select your assigned village",
+        variant: "destructive",
+      });
+      navigate('/login');
+    }
+  }, [navigate, toast]);
+  
+  // Filter patients based on nurse's village
+  const filteredPatients = patients.filter(patient => 
+    !nurseVillage || patient.village === nurseVillage
+  );
   
   const handleSelectPatient = (patient: Patient) => {
     setSelectedPatient(patient);
@@ -72,7 +94,7 @@ const NurseDashboard = () => {
   };
   
   const handleAddPatient = () => {
-    if (!newPatientName || !newPatientAge || !newPatientVillage) {
+    if (!newPatientName || !newPatientAge) {
       toast({
         title: "Missing information",
         description: "Please fill in all required fields",
@@ -81,13 +103,13 @@ const NurseDashboard = () => {
       return;
     }
     
-    // Create new patient
+    // Create new patient - for nurse, village is already set
     const newPatient: Patient = {
       id: `P${String(patients.length + 1).padStart(3, '0')}`,
       name: newPatientName,
       age: Number(newPatientAge),
       gender: newPatientGender,
-      village: newPatientVillage,
+      village: nurseVillage, // Use nurse's assigned village
       phone: newPatientPhone || undefined,
       vitals: [],
       lastCheckup: new Date().toISOString().split('T')[0],
@@ -104,7 +126,6 @@ const NurseDashboard = () => {
     setNewPatientName('');
     setNewPatientAge('');
     setNewPatientGender("Male");
-    setNewPatientVillage('');
     setNewPatientPhone('');
     setIsAddingPatient(false);
     
@@ -124,7 +145,12 @@ const NurseDashboard = () => {
       
       <main className="flex-1 container mx-auto px-4 pb-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">Patient Management</h2>
+          <div>
+            <h2 className="text-2xl font-semibold">Patient Management</h2>
+            {nurseVillage && (
+              <p className="text-healthcare-primary">Village: {nurseVillage}</p>
+            )}
+          </div>
           
           <Dialog open={isAddingPatient} onOpenChange={setIsAddingPatient}>
             <DialogTrigger asChild>
@@ -183,22 +209,14 @@ const NurseDashboard = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="village">Village/Town *</Label>
-                  <Select 
-                    value={newPatientVillage} 
-                    onValueChange={setNewPatientVillage}
-                  >
-                    <SelectTrigger id="village">
-                      <SelectValue placeholder="Select village" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {['Ranchi', 'Hazaribagh', 'Dhanbad', 'Bokaro', 'Jamshedpur', 'Dumka', 'Giridih', 'Deoghar', 'Ramgarh', 'Chatra'].map((village) => (
-                        <SelectItem key={village} value={village}>
-                          {village}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="village">Village/Town</Label>
+                  <Input 
+                    id="village" 
+                    value={nurseVillage}
+                    disabled
+                    className="bg-slate-100"
+                  />
+                  <p className="text-xs text-slate-500">You can only add patients from your assigned village</p>
                 </div>
                 
                 <div className="space-y-2">
@@ -230,7 +248,7 @@ const NurseDashboard = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <PatientList 
-            patients={patients} 
+            patients={filteredPatients} 
             onSelectPatient={handleSelectPatient}
             selectedPatientId={selectedPatient?.id || null}
           />

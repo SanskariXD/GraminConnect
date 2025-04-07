@@ -1,26 +1,43 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, ArrowLeft, LogIn } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, LogIn, MapPin } from 'lucide-react';
+import { villages } from '@/utils/mockData';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('doctor');
+  const [village, setVillage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Show/hide village selection based on role
+  const showVillageSelect = role === 'nurse';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    // Validate nurse has selected a village
+    if (role === 'nurse' && !village) {
+      toast({
+        title: "Village Selection Required",
+        description: "Please select your assigned village",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
     
     // This would normally be Firebase authentication
     setTimeout(() => {
@@ -36,6 +53,8 @@ const Login = () => {
           navigate('/nurse');
           localStorage.setItem('userRole', 'nurse');
           localStorage.setItem('userName', 'Nurse Priya Singh');
+          // Store selected village for nurse
+          localStorage.setItem('userVillage', village);
         }
       } else {
         toast({
@@ -70,8 +89,8 @@ const Login = () => {
             </div>
           </div>
           
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">Welcome Back</h1>
-          <p className="text-slate-500">Sign in to continue to Seva Sathi Connect</p>
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">Welcome to Gramin Connect</h1>
+          <p className="text-slate-500">Sign in to continue to rural healthcare platform</p>
         </div>
         
         <Card className="border-none shadow-lg">
@@ -120,7 +139,13 @@ const Login = () => {
                 <Label className="text-slate-700">Select your role</Label>
                 <RadioGroup
                   value={role}
-                  onValueChange={setRole}
+                  onValueChange={(value) => {
+                    setRole(value);
+                    // Reset village if switching to doctor
+                    if (value === 'doctor') {
+                      setVillage('');
+                    }
+                  }}
                   className="flex flex-col space-y-2"
                 >
                   <div className="flex items-center space-x-3 rounded-lg border border-slate-200 p-3 hover:bg-slate-50">
@@ -133,6 +158,25 @@ const Login = () => {
                   </div>
                 </RadioGroup>
               </div>
+              
+              {showVillageSelect && (
+                <div className="space-y-2 pt-2">
+                  <Label htmlFor="village" className="text-slate-700 flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    Assigned Village
+                  </Label>
+                  <Select value={village} onValueChange={setVillage}>
+                    <SelectTrigger id="village" className="h-12 text-base border-slate-200">
+                      <SelectValue placeholder="Select your assigned village" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {villages.map((v) => (
+                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </CardContent>
             
             <CardFooter className="flex flex-col">

@@ -27,7 +27,7 @@ const Index = () => {
               <Heart className="h-6 w-6 text-healthcare-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-healthcare-primary to-healthcare-secondary bg-clip-text text-transparent mb-4">
-              Seva Sathi Connect
+              Gramin Connect
             </h1>
             <p className="text-lg md:text-xl text-slate-600 max-w-lg mx-auto">
               Empowering healthcare professionals to deliver better care in rural communities
@@ -36,22 +36,36 @@ const Index = () => {
           
           {/* Main Card */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
-            <div className="p-6 md:p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-semibold text-slate-800 mb-2">Welcome to Healthcare Collaboration</h2>
-                <p className="text-slate-500">
-                  Bridging the gap between doctors and nurses across rural areas
-                </p>
+            <div className="md:flex">
+              {/* Image Section - only visible on md and above */}
+              <div className="hidden md:block md:w-1/2 bg-healthcare-soft-purple">
+                <div className="h-full flex items-center justify-center p-6">
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="Rural healthcare" 
+                    className="w-full max-w-xs mx-auto"
+                  />
+                </div>
               </div>
               
-              <div className="flex justify-center">
-                <Button 
-                  onClick={() => navigate('/login')}
-                  className="healthcare-btn healthcare-btn-primary flex items-center group px-8 py-6 text-lg"
-                >
-                  <span>Get Started</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+              {/* Content Section */}
+              <div className="md:w-1/2 p-6 md:p-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-semibold text-slate-800 mb-4">Connect Rural Healthcare</h2>
+                  <p className="text-slate-500">
+                    Bridging the gap between doctors and nurses across rural areas
+                  </p>
+                </div>
+                
+                <div className="flex justify-center">
+                  <Button 
+                    onClick={() => navigate('/login')}
+                    className="healthcare-btn healthcare-btn-primary flex items-center group px-8 py-6 text-lg"
+                  >
+                    <span>Get Started</span>
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
