@@ -9,7 +9,178 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      emergency_cases: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          description: string
+          id: string
+          patient_id: string | null
+          reported_by: string | null
+          resolved_at: string | null
+          severity: string
+          status: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          patient_id?: string | null
+          reported_by?: string | null
+          resolved_at?: string | null
+          severity?: string
+          status?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          patient_id?: string | null
+          reported_by?: string | null
+          resolved_at?: string | null
+          severity?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_cases_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patients: {
+        Row: {
+          age: number
+          allergies: string | null
+          created_at: string
+          created_by: string | null
+          full_name: string
+          gender: string
+          id: string
+          medical_history: string | null
+          phone: string | null
+          updated_at: string
+          village: string
+        }
+        Insert: {
+          age: number
+          allergies?: string | null
+          created_at?: string
+          created_by?: string | null
+          full_name: string
+          gender: string
+          id?: string
+          medical_history?: string | null
+          phone?: string | null
+          updated_at?: string
+          village: string
+        }
+        Update: {
+          age?: number
+          allergies?: string | null
+          created_at?: string
+          created_by?: string | null
+          full_name?: string
+          gender?: string
+          id?: string
+          medical_history?: string | null
+          phone?: string | null
+          updated_at?: string
+          village?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          role: string
+          updated_at: string
+          village: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: string
+          updated_at?: string
+          village?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: string
+          updated_at?: string
+          village?: string | null
+        }
+        Relationships: []
+      }
+      vitals: {
+        Row: {
+          blood_pressure: string | null
+          created_at: string
+          glucose_level: number | null
+          heart_rate: number | null
+          height: number | null
+          id: string
+          notes: string | null
+          oxygen_saturation: number | null
+          patient_id: string
+          recorded_by: string | null
+          symptoms: string | null
+          temperature: number | null
+          weight: number | null
+        }
+        Insert: {
+          blood_pressure?: string | null
+          created_at?: string
+          glucose_level?: number | null
+          heart_rate?: number | null
+          height?: number | null
+          id?: string
+          notes?: string | null
+          oxygen_saturation?: number | null
+          patient_id: string
+          recorded_by?: string | null
+          symptoms?: string | null
+          temperature?: number | null
+          weight?: number | null
+        }
+        Update: {
+          blood_pressure?: string | null
+          created_at?: string
+          glucose_level?: number | null
+          heart_rate?: number | null
+          height?: number | null
+          id?: string
+          notes?: string | null
+          oxygen_saturation?: number | null
+          patient_id?: string
+          recorded_by?: string | null
+          symptoms?: string | null
+          temperature?: number | null
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vitals_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
