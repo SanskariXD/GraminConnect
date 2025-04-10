@@ -14,6 +14,8 @@ interface PatientListProps {
   patients: Patient[];
   onSelectPatient: (patient: Patient) => void;
   selectedPatientId: string | null;
+  loading?: boolean;
+  onRefresh?: () => Promise<void>;
 }
 
 const PatientList: React.FC<PatientListProps> = ({ 

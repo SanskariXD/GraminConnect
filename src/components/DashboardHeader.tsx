@@ -6,6 +6,8 @@ interface DashboardHeaderProps {
   title: string;
   subtitle?: string;
   children?: ReactNode;
+  username?: string;
+  role?: string;
 }
 
 const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title, subtitle, children }) => {

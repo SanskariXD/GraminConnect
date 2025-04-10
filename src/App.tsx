@@ -46,32 +46,6 @@ const ProtectedRoute = ({ children, requiredRole }: { children: JSX.Element, req
   return children;
 };
 
-// AppRoutes component to use auth context
-const AppRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Index />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/auth/callback" element={<AuthCallback />} />
-    <Route 
-      path="/nurse" 
-      element={
-        <ProtectedRoute requiredRole="nurse">
-          <NurseDashboard />
-        </ProtectedRoute>
-      } 
-    />
-    <Route 
-      path="/doctor" 
-      element={
-        <ProtectedRoute requiredRole="doctor">
-          <DoctorDashboard />
-        </ProtectedRoute>
-      } 
-    />
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-);
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -79,7 +53,28 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <AppRoutes />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route 
+              path="/nurse" 
+              element={
+                <ProtectedRoute requiredRole="nurse">
+                  <NurseDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/doctor" 
+              element={
+                <ProtectedRoute requiredRole="doctor">
+                  <DoctorDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
