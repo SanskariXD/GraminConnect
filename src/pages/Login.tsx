@@ -73,11 +73,25 @@ const Login = () => {
       setIsLoading(true);
       await signInWithGoogle();
     } catch (error: any) {
+      console.error("Google Sign In Error:", error);
+      
+      // More specific error messages
+      let errorDescription = "Something went wrong";
+      
+      if (error?.message?.includes("provider is not enabled") || 
+          error?.error_description?.includes("provider is not enabled") ||
+          error?.error?.includes("validation_failed")) {
+        errorDescription = "Google authentication is not configured in Supabase. Please enable the Google provider in your Supabase dashboard.";
+      } else if (error?.message) {
+        errorDescription = error.message;
+      }
+      
       toast({
         title: "Google Sign In Error",
-        description: error?.message || "Something went wrong",
+        description: errorDescription,
         variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -224,6 +238,7 @@ const Login = () => {
                 className="w-full py-5 text-base font-medium border-slate-300 hover:bg-slate-50"
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
+                title="Requires configuration in Supabase"
               >
                 <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
                   <path
